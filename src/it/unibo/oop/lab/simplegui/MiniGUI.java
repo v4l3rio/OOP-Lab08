@@ -45,7 +45,8 @@ public class MiniGUI {
         newPanel.add(tf, BorderLayout.NORTH);
         newPanel.add(writeOnNewPanel);
         canvas.add(write, BorderLayout.CENTER);
-        frame.setContentPane(newPanel);
+        canvas.add(newPanel, BorderLayout.CENTER);
+        frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
          * Handlers
