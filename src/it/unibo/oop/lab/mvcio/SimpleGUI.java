@@ -5,14 +5,13 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintStream;
-
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  * A very simple program using a graphical interface.
@@ -48,15 +47,21 @@ public final class SimpleGUI {
     public SimpleGUI() {
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
-        final JButton pulsante = new JButton("pulsante");
+        final JButton pulsante = new JButton("Save");
         canvas.add(pulsante, BorderLayout.SOUTH);
+        final JTextArea textArea = new JTextArea();
+        canvas.add(textArea, BorderLayout.CENTER);
+
         
         pulsante.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
                final Controller controller = new Controller();
                try {
-                controller.save("questo file, è inutile. ELIMINAMI!");
+                   final int n = JOptionPane.showConfirmDialog(frame, "Do you want to save the file ?", "Are you sure?", JOptionPane.YES_NO_OPTION);
+                   if(n==JOptionPane.YES_OPTION) {
+                       controller.save(textArea.getText());
+                   }
             } catch (IOException e1) {
                 
                 e1.printStackTrace();
@@ -88,7 +93,7 @@ public final class SimpleGUI {
         frame.setVisible(true);
     }
     
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         new SimpleGUI();
     }
 

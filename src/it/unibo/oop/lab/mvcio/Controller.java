@@ -49,9 +49,6 @@ public class Controller {
         this.file = file;
     }
     
-    public void setFileByString(final String fileString) {
-        this.file = new File(fileString);
-    }
     
     public void save(final String text) throws IOException {
         try (PrintStream out = new PrintStream(file)) {
