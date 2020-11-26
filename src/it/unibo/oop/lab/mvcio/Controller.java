@@ -41,7 +41,7 @@ public class Controller {
         return file;
     }
 
-    public String getFileString() {
+    public String getCurrentFilePath() {
         return file.toString();
     }
 
