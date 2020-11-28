@@ -19,6 +19,7 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
      */
     private final DrawNumber model;
     private final DrawNumberView view;
+    private final DrawNumberView view2;
 
     /**
      * 
@@ -43,6 +44,9 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
         this.model = new DrawNumberImpl(mappaValori.get("minimum"), mappaValori.get("maximum"), mappaValori.get("attempts"));
         this.view = new DrawNumberViewImpl();
         this.view.setObserver(this);
+        this.view2 = new DrawNumberViewImplOnStdout();
+        this.view2.setObserver(this);
+        this.view2.start();
         this.view.start();
     }
 
@@ -51,10 +55,13 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
         try {
             final DrawResult result = model.attempt(n);
             this.view.result(result);
+            this.view2.result(result);
         } catch (IllegalArgumentException e) {
             this.view.numberIncorrect();
+            this.view2.numberIncorrect();
         } catch (AttemptsLimitReachedException e) {
             view.limitsReached();
+            view2.limitsReached();
         }
     }
 
