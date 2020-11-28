@@ -23,6 +23,7 @@ public final class DrawNumberImpl implements DrawNumber {
      *            the maximum number of attempts
      */
     public DrawNumberImpl(final int min, final int max, final int attempts) {
+        
         this.min = min;
         this.max = max;
         this.attempts = attempts;

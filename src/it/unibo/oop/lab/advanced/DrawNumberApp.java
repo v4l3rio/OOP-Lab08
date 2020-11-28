@@ -1,12 +1,22 @@
 package it.unibo.oop.lab.advanced;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
+
+
 /**
  */
 public final class DrawNumberApp implements DrawNumberViewObserver {
 
-    private static final int MIN = 0;
-    private static final int MAX = 100;
-    private static final int ATTEMPTS = 10;
+    /*
+     * private static final int MIN = 0; private static final int MAX = 100; private
+     * static final int ATTEMPTS = 10;
+     */
     private final DrawNumber model;
     private final DrawNumberView view;
 
@@ -14,7 +24,23 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
      * 
      */
     public DrawNumberApp() {
-        this.model = new DrawNumberImpl(MIN, MAX, ATTEMPTS);
+        BufferedReader yml =new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/config.yml")));
+        Map<String, Integer> mappaValori = new HashMap<>();
+        try {
+            StringTokenizer st;
+            String s;
+            while((s = yml.readLine()) != null ) {
+               st = new StringTokenizer(s, ": ");
+               String key=st.nextToken();
+               int value = Integer.parseInt(st.nextToken());
+               mappaValori.put(key, value);
+            }
+        } catch (IOException e) {
+            System.out.println("Errore nel tokenizer, yml");
+            e.printStackTrace();
+        }
+        
+        this.model = new DrawNumberImpl(mappaValori.get("minimum"), mappaValori.get("maximum"), mappaValori.get("attempts"));
         this.view = new DrawNumberViewImpl();
         this.view.setObserver(this);
         this.view.start();
