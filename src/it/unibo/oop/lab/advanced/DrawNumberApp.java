@@ -20,6 +20,7 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
     private final DrawNumber model;
     private final DrawNumberView view;
     private final DrawNumberView view2;
+    private final DrawNumberView view3;
 
     /**
      * 
@@ -46,6 +47,9 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
         this.view.setObserver(this);
         this.view2 = new DrawNumberViewImplOnStdout();
         this.view2.setObserver(this);
+        this.view3 = new DrawNumberViewImplOnPanel();
+        this.view3.setObserver(this);
+        this.view3.start();
         this.view2.start();
         this.view.start();
     }
@@ -56,12 +60,15 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
             final DrawResult result = model.attempt(n);
             this.view.result(result);
             this.view2.result(result);
+            this.view3.result(result);
         } catch (IllegalArgumentException e) {
             this.view.numberIncorrect();
             this.view2.numberIncorrect();
+            this.view3.numberIncorrect();
         } catch (AttemptsLimitReachedException e) {
             view.limitsReached();
             view2.limitsReached();
+            view3.limitsReached();
         }
     }
 

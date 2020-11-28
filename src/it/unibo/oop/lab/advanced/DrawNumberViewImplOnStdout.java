@@ -2,7 +2,7 @@ package it.unibo.oop.lab.advanced;
 
 public class DrawNumberViewImplOnStdout implements DrawNumberView{
     private static final String NEW_GAME = ": a new game starts!";
-    DrawNumberViewObserver observer;
+    private DrawNumberViewObserver observer;
 
     @Override
     public void setObserver(DrawNumberViewObserver observer) {
